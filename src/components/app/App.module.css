@@ -1,0 +1,15 @@
+.app {
+  display: grid;
+  grid-template-columns: 460px auto;
+  min-height: 100vh;
+}
+@media (max-width: 1440px) {
+  .app {
+    grid-template-columns: calc(330px + 130 * ((100vw - 834px) / 606)) auto;
+  }
+}
+@media (max-width: 834px) {
+  .app {
+    display: block;
+  }
+}

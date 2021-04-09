@@ -1,70 +1,151 @@
-# Getting Started with Create React App
+# marathon-21-03-25
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Описание проекта:
 
-## Available Scripts
+**Weather App** – это приложение прогноза погоды, имеющее следующие функции:
 
-In the project directory, you can run:
+- Прогноз на 7 дней
+- Прогноз на 12 часов
+- Прогноз на сегодня + показатели влажности, давления, скорости ветра, видимости
+- Поиск погоды по городу
 
-### `yarn start`
+## **Задание №4 –  Перенос приложения на React**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Для создания проекта необходимо выполнить следующие действия:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. Перенести **все документы** из рабочей папки marathon-21-03-25 в другую директорию
+2. **В пустой** рабочей папке marathon-21-03-25 открыть терминал по адресу папки и ввести команду (**обязательно с точкой в конце)**
 
-### `yarn test`
+```bash
+npx create-react-app .
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Необходимо переписать приложение погоды на React и реализовать все функции из предыдущих заданий.
 
-### `yarn build`
+Верстка реализуется на `jsx`, то есть на React.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Разделить UI на компоненты, как минимум на 4.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Шкала влажности
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Шкала влажности должна заполняться на основании данных полученных из запроса к API Openweathermap.
 
-### `yarn eject`
+При изменении размера карточки, шкала не должна растягиваться.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+(см. макет Figma [https://www.figma.com/file/kBsPC890Ul0A2cIgiot89c/Weather-App-humidity-and-history?node-id=0%3A1](https://www.figma.com/file/kBsPC890Ul0A2cIgiot89c/Weather-App-humidity-and-history?node-id=0%3A1)).
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### История поиска
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+В панели поиска должны хранится последние 5 запросов, при нажатии на них должна отображаться погода соответствующего города [(см. макет Figma)](https://www.figma.com/file/kBsPC890Ul0A2cIgiot89c/Weather-App-humidity-and-history?node-id=0%3A1).
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Нужно учитывать и корректно отображать длинные названия городов, например: "Александровск-Сахалинский".
 
-## Learn More
+**Результат задания** – Приложение погоды на React, реализация всей функциональности из предыдущих заданий, включая шкалу влажности и историю поиска.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Задание № 3 – Реализация функционала приложения
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Получение данных погоды по API
 
-### Code Splitting
+На момент загрузки данных в карточках должен выводится анимационный индикатор загрузки (3 точки), взять его нужно тут [https://loading.io/css/](https://loading.io/css/).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![https://s3.us-west-2.amazonaws.com/secure.notion-static.com/dfe9fd72-84a3-469a-aa3b-8f15335ed95e/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210329%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210329T074355Z&X-Amz-Expires=86400&X-Amz-Signature=24bbda7349ec8d2e9a0d16df69b5e82feff4bb8a5eb632f3945d716cb051a7dc&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/dfe9fd72-84a3-469a-aa3b-8f15335ed95e/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210329%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210329T074355Z&X-Amz-Expires=86400&X-Amz-Signature=24bbda7349ec8d2e9a0d16df69b5e82feff4bb8a5eb632f3945d716cb051a7dc&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22)
 
-### Analyzing the Bundle Size
+Для запроса и получения названия города на русском языке необходимо воспользоваться открытым API [Nominatim.openstreetmap.org](https://nominatim.org/release-docs/develop/api/Overview/), регистрация здесь не требуется.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```jsx
+`https://nominatim.openstreetmap.org/search.php?q=${query}&format=json&addressdetails=1&limit=1`
+// query — это значение формы ввода поиска
+```
 
-### Making a Progressive Web App
+Получаем данные погоды через API [OpenWeatherMap](https://openweathermap.org), необходимо авторизоваться и добавить свой ключ в код для запросов. Подробнее в [документации OpenWeatherMap](https://openweathermap.org/api/one-call-api) (для задания используете [One Call API](https://openweathermap.org/api/one-call-api)).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```jsx
+`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${key}&units=metric&lang=ru`
+// lat, lon – долгота и широта полученные из запроса к nominatim.openstreetmap.org
+// key – ключ полученный в OpenWeatherMap
+```
 
-### Advanced Configuration
+### Горизонтальное меню переключения прогноза на неделю и на 12 часов
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+По нажатию на пункты меню **"на неделю"** или **"почасовой"** должны отображаться соответствующие карточки с погодой на день недели или погода на час.
 
-### Deployment
+### Слайдер прогноза на неделю и на 12 часов
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Слева и справа от карточек должны быть кнопки прокрутки, по нажатию на кнопку карточки смещаются на 1 позицию.
 
-### `yarn build` fails to minify
+У кнопки должны быть состояния активности/неактивности.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Если после прокрутки карточка последняя в слайдере – необходимо перевести кнопку прокрутки вперед в режим неактивности, также если карточка первая, то кнопка прокрутки назад должна быть неактивной.
+
+### Поиск города
+
+В поле поиска города вводится запрос на русском языке.
+
+Как только пришел успешный запрос, панель поиска должна закрыться.
+
+Если по запросу ничего не пришло, то должен быть текст `"Упс! Город не найден, попробуйте другой"`, а также в карточках остаются данные предыдущего успешного запроса (см. макет Figma [https://www.figma.com/file/SFdU7WdzHp4C5NB2m7Elgs/Weather-App-Error-and-loader?node-id=0%3A1](https://www.figma.com/file/SFdU7WdzHp4C5NB2m7Elgs/Weather-App-Error-and-loader?node-id=0%3A1)).
+
+### Формат дат
+
+Формат дат на карточках погоды должен соответствовать макету – "Пн, 15 мар".
+
+### Иконки погоды
+
+Иконки погоды на карточках и основной панели нужно получать по запросу к API.
+
+Подробности в документации [API Openweathermap](https://openweathermap.org/api/one-call-api). Возможные размеры иконки в запросе: 2x (для плашек прогноза на день и на час), 4x (для боковой панели).
+
+### Формат давления
+
+Давление должно быть выражено в миллиметрах ртутного столба.
+
+### Индикатор направления ветра + аббревиатура направления
+
+Индикатор направления ветра должен поворачиваться на значение угла полученного из запроса к API Openweathermap.
+
+Рядом с индикатором направления ветра выводится аббревиатура направления на русском языке. Необходимо конвертировать значение угла в текстовое представление.
+
+```jsx
+// Массив направлений
+const directions = ['С', 'СВ', 'В', 'ЮВ', 'Ю', 'ЮЗ', 'З', 'СЗ'];
+```
+
+**Результат задания** – Данные приходят из запросов API, горизонтальное меню переключает прогнозы на неделю и на 12 часов, слайдер прогноза прокручивает карточки по нажатию на кнопки, в результате поиска города отображается погода в данном городе, форматы данных соответствуют заданию, иконки погоды приходят по запросу к API и правильно выводятся, индикатор направления ветра вращается в зависимости от угла, выводится аббревиатура направления ветра.
+
+## Задание № 2 – Неожиданное требование заказчика
+
+Заказчик потребовал добавить в приложение темную тему.
+
+Ссылка на макет с темной темой: [https://www.figma.com/file/QHhlmnWbWkLG4UTiUr26jK/Weather-App-Dark?node-id=0%3A1](https://www.figma.com/file/QHhlmnWbWkLG4UTiUr26jK/Weather-App-Dark?node-id=0%3A1)
+
+Необходимо сверстать кнопку переключения темной/светлой темы (HTML, CSS).
+
+Реализовать функционал переключения темы (JS – событие `click`). 
+
+При клике на кнопку цветовая палитра кнопки и приложения в целом должны поменяться.
+
+**Результат задания** – свёрстанная темная тема (HTML, CSS) и работающая кнопка переключения темной/светлой темы (JS).
+
+## Задание № 1 – Верстка приложения
+
+Полная верстка приложения погоды по макетам в Figma – 
+
+[https://www.figma.com/file/Gy6QcbeAzG53S4O0KMmIuT/Weather-App?node-id=0%3A](https://www.figma.com/file/Gy6QcbeAzG53S4O0KMmIuT/Weather-App?node-id=0%3A1)
+
+**Задание считается выполненным**, если:
+
+⇢ Все тексты, изображения и значения взяты из макета,
+
+⇢ Верстка адаптивная и резиновая,
+
+⇢ Изображения не теряют пропорции и не срезаются,
+
+⇢ По клику на кнопку "Поиск города" слева плавно выезжает панель с поисковой строкой (по нажатию на крестик – закрывается), скорость CSS анимации `transition: 0.5s`,
+
+⇢ Не используются фреймворки, библиотеки и препроцессоры (Bootstrap, UI Kit, Sass и т.д),
+
+⇢ Боковая панель при наличии скролла фиксирована на всю высоту в планшетной ориентации.
+
+**Не нужно** реализовывать логику и функционал поиска, в рамках этого задания только верстка и 1 интерактивный элемент, в виде выезжающей панели с поисковой строкой.
+
+**Результат задания** – свёрстанное приложение по макету (HTML, CSS) и анимация выезжающей панели с поисковой строкой по кнопке (JS – событие `click`, на кнопке открытия панели и на крестике для закрытия)
