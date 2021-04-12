@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SearchPanel from '../SearchPanel/SearchPanel';
-import { toggleSearchPanel, changeCity } from '../../actions';
+import { toggleSearchPanel } from '../../actions';
 import { getDay } from '../../functions';
 import cn from './Sidebar.module.css';
 
@@ -13,7 +13,7 @@ const Sidebar = ({ current, currentCity, changeTheme, toggleSearchPanel, isPanel
   const onOpenPanel = e => {
     e.preventDefault();
     toggleSearchPanel(true);
-  }
+  };
 
   return (
     <section className={cn.sidebar}>

@@ -4,6 +4,7 @@ import Preloader from '../common/Preloader/Preloader';
 import CityList from './SearchHist/SearchHist';
 import { changeCity } from '../../actions';
 import cn from './SearchPanel.module.css';
+import SvgCloseIcon from '../svgs/SvgClose';
 
 const SearchPanel = (props) => {
   const [inputValue, setInputValue] = React.useState('Москва');
@@ -27,11 +28,7 @@ const SearchPanel = (props) => {
   return (
     <div className={`${cn.searchPanel} ${props.isPanelOpen && cn.open}`} ref={panelRef}>
       <div className={`${cn.closeIcon} closeIcon`} onClick={onIconClose}>
-        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M26 2.61857L23.3814 0L13 10.3814L2.61857 0L0 2.61857L10.3814 13L0 23.3814L2.61857 26L13 15.6186L23.3814 26L26 23.3814L15.6186 13L26 2.61857Z"
-            fill="#48484A" />
-        </svg>
+        <SvgCloseIcon />
       </div>
       <div className={cn.searchInput}>
         <input value={inputValue} onChange={onInputChange}></input>

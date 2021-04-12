@@ -11,7 +11,8 @@ const CityList = ({ lastCities, changeCity }) => {
   }
 
   const renderCities = () => {
-    return removeDuplicates(lastCities, 'name').map((city, ind) => (ind <= 4 && ind !== lastCities.length - 1)
+    const uniqueCities = removeDuplicates(lastCities, 'name');
+    return uniqueCities.map((city, ind) => (ind <= 4 && ind !== uniqueCities.length - 1)
       ? <li key={city.id} className={cn.lastCities_item} onClick={() => { changeCity(city.name); }}>{city.name}</li>
       : null);
   };

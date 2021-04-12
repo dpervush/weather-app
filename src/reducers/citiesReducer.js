@@ -1,4 +1,4 @@
-import { CHANGE_CITY, HAS_ERROR, LOAD } from "../actions/types"
+import { CHANGE_CITY, HAS_ERROR } from "../actions/types"
 
 const INITIAL_STATE = {
   currentCity: null,

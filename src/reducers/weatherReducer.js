@@ -5,14 +5,14 @@ const INITIAL_STATE = {
   hourly: null,
   current: null,
   isFetching: true,
-  isFirstInit: false
+  isFirstInit: true
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case GET_WEATHER:
-      return { ...state, ...action.payload, isFirstInit: true };
+      return { ...state, ...action.payload, isFirstInit: false };
     case TOGGLE_FETCHING:
       return { ...state, isFetching: action.payload };
     default:

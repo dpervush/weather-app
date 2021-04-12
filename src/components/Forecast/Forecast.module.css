@@ -70,6 +70,10 @@
   opacity: 0.5;
   cursor: default;
 }
+.arrowsPrev.inactive:hover path,
+.arrowsNext.inactive:hover path {
+  opacity: 0.5;
+}
 .arrowsPrev path,
 .arrowsNext path {
   transition: all 0.3s;
@@ -83,6 +87,7 @@
 }
 .arrowsNext {
   right: -66px;
+  transform: rotate(180deg) translateY(50%);
 }
 .sliderContent {
   display: none;
